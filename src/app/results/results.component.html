@@ -1,0 +1,41 @@
+<div class="section-title">
+  <h3>
+    Výsledky závodu<br /><span>{{ race?.name }}</span>
+  </h3>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="results">
+  <mat-tab-group>
+    <mat-tab
+      *ngFor="let category of results.categories"
+      [label]="category.name"
+    >
+      <div style="display: flex; justify-content: center">
+        <div style="overflow: auto">
+          <table style="width: 100%">
+            <tr>
+              <th style="text-align: right">Pořadí</th>
+              <th>Jméno</th>
+              <th>Tým</th>
+              <th>Ročník</th>
+              <th>Čas</th>
+              <th>Počet bodů</th>
+            </tr>
+            <tr *ngFor="let finish of category.results">
+              <th style="text-align: right">{{ finish.place }}.</th>
+              <th>
+                <a routerLink="/zavodnik/{{ finish.racer._id }}">{{
+                  finish.racer.name
+                }}</a>
+              </th>
+              <td>{{ finish.racer.team }}</td>
+              <td>{{ finish.racer.year }}</td>
+              <td>{{ _AppService.getTimeString(finish.time) }}</td>
+              <td>{{ finish.points }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,17 @@
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td,
+th {
+  padding: 10px;
+  text-align: left;
+}
+
+.headers-row > th {
+  color: #106eea;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

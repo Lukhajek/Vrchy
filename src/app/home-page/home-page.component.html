@@ -1,0 +1,202 @@
+<div style="display: flex; justify-content: center">
+  <div class="nav-link2">
+    <a href="http://old.vrchy.maratonstav.cz/historie">HISTORIE</a>
+  </div>
+  <div class="nav-link2">
+    <a href="http://old.vrchy.maratonstav.cz/galerie">GALERIE</a>
+  </div>
+  <div class="nav-link2">
+    <a href="https://www.atletika.cz/" target="_blank">ČAS</a>
+  </div>
+</div>
+<section id="celkove-vysledky">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Celové výsledky</h2>
+    </div>
+    <div style="display: flex; justify-content: center" data-aos="fade-up">
+      <button mat-raised-button color="primary" routerLink="/vysledky">
+        Celkové výsledky
+      </button>
+    </div>
+  </div>
+</section>
+<section id="zavody">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Závody</h2>
+    </div>
+  </div>
+
+  <div
+    style="display: flex; justify-content: center; margin-top: 20px"
+    data-aos="fade-up"
+  >
+    <mat-progress-bar
+      mode="indeterminate"
+      *ngIf="loadingRaces"
+      style="width: 80%"
+    ></mat-progress-bar>
+    <div class="table-div" style="overflow: auto" *ngIf="!loadingRaces">
+      <table>
+        <tr class="headers-row">
+          <th>Název závodu</th>
+          <th>Datum</th>
+          <th>Den</th>
+          <th>Propozice</th>
+          <th>Výsledky</th>
+        </tr>
+        <tr *ngFor="let race of races">
+          <th>{{ race.name }}</th>
+          <td>{{ race.date }}</td>
+          <td>{{ race.day }}</td>
+          <td>
+            <a
+              [href]="race.proposition"
+              target="_blank"
+              *ngIf="race.proposition"
+              >Propozice</a
+            ><span *ngIf="!race.proposition">Nedostupné</span>
+          </td>
+          <td>
+            <a routerLink="/vysledky/{{ race._id }}" *ngIf="race.hasResults"
+              >Výsledky</a
+            ><span *ngIf="!race.hasResults">Nedostupné</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
+<section id="propozice">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Propozice</h2>
+    </div>
+    <div style="display: flex; justify-content: center" data-aos="fade-up">
+      <a href="/api/propositions/Cesky_pohar_vrchy_22.pdf" target="_blank">
+        <button mat-raised-button color="primary">Propozice</button>
+      </a>
+    </div>
+  </div>
+</section>
+<section id="kategorie">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Kategorie</h2>
+    </div>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap">
+      <ul>
+        <li>Junioři 19 let a mladší, 2003 a mladší</li>
+        <li>Muži A 20 – 39 let, 2002 – 1983</li>
+        <li>Muži B 40 – 49 let, 1982 – 1973</li>
+        <li>Muži C 50 – 59 let, 1972 – 1963</li>
+        <li>Muži D 60 – 69 let, 1962 – 1953</li>
+        <li>Muži E 70 let a starší, 1952 a starší</li>
+      </ul>
+      <div style="width: 20px"></div>
+      <ul>
+        <li>Juniorky 19 let a mladší, 2003 a mladší</li>
+        <li>Ženy A 20 – 34 let, 2002 – 1988</li>
+        <li>Ženy B 35 – 44 let, 1987 – 1978</li>
+        <li>Ženy C 45 – 54 let, 1977 – 1968</li>
+        <li>Ženy D 55 – 64 let, 1967 – 1958</li>
+        <li>Ženy E 65 let a starší, 1957 a starší</li>
+      </ul>
+    </div>
+    <b>Covidová opatření: </b><br />
+    <span
+      >Závody nebudou opět rozděleny do skupin jako v minulosti ale zůstanou
+      všechny na stejné úrovni. Pouze Světový pohár má dvojnásobné bodování.
+      Bodovat bude 25 lidí ve všech kategoriích i v kategorii OPEN na všech
+      závodech. Každému se započítává 15 nejlepších výsledků v sezóně. Zvítězí
+      ten, který obdrží nejvíc bodů. V případě rovnosti bodů, rozhoduje umístění
+      na MČR nebo na MČRvet.</span
+    >
+  </div>
+</section>
+<section id="kategorie">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <h2>Bodování</h2>
+    </div>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap">
+      <div style="max-width: 400px">
+        <span
+          ><b>POČET BODOVANÝCH MÍST:</b><br />
+          Ve všech kategoriích a závodech boduje 25 závodníků V letošním ročníku
+          bude opět vyhlášeno v kategorii OPEN absolutní pořadí v kategorii mužů
+          a žen bez rozdílu věku. Do absolutního pořadí se počítá prvních 25
+          závodníků v každém závodě. Všechna pravidla pro bodování zůstávají
+          stejná jako pro bodování v jednotlivých kategoriích. Do absolutního
+          pořadí se <b>nebudou</b> udělovat body za účast.</span
+        >
+      </div>
+      <div style="width: 20px"></div>
+      <table>
+        <tr>
+          <th>Místo</th>
+        </tr>
+        <tr>
+          <td>1.</td>
+          <td>35</td>
+        </tr>
+        <tr>
+          <td>2.</td>
+          <td>31</td>
+        </tr>
+        <tr>
+          <td>3.</td>
+          <td>27</td>
+        </tr>
+        <tr>
+          <td>4.</td>
+          <td>24</td>
+        </tr>
+        <tr>
+          <td>5.</td>
+          <td>22</td>
+        </tr>
+        <tr>
+          <td>6.</td>
+          <td>20</td>
+        </tr>
+        <tr>
+          <td>7.-25.</td>
+          <td>18-1</td>
+        </tr>
+      </table>
+    </div>
+    <div style="height: 20px"></div>
+    <div style="display: flex; justify-content: center; flex-wrap: wrap">
+      <div style="max-width: 300px">
+        <span>
+          V letošním ročníku bude opět vyhlášeno absolutní pořadí v kategorii
+          mužů a žen bez rozdílu věku.<br /><br />
+
+          <b>ODMĚNY ABSOLUTNÍ POŘADÍ:</b><br />
+          Muži: 1. – 5. místo v absolutním pořadí – finanční ceny <br />
+          Ženy: 1. – 5. místo v absolutním pořadí – finanční ceny
+        </span>
+      </div>
+      <div style="width: 20px"></div>
+      <div>
+        <span>
+          <b>ODMĚNY PŘI VYHLAŠENÍ VÝSLEDKŮ:</b><br />
+          Muži „A“: 3 místa – věcné ceny<br />
+          Muži „B“: 3 místa – věcné ceny<br />
+          Muži „C“: 3 místa – věcné ceny<br />
+          Muži „D“: 3 místa – věcné ceny<br />
+          Muži „E“: 3 místa – věcné ceny<br />
+          Junioři: 3 místa – věcné ceny<br />
+          Ženy „A“: 3 místa – věcné ceny<br />
+          Ženy „B“: 3 místa – věcné ceny<br />
+          Ženy „C“: 3 místa – věcné ceny<br />
+          Ženy „D“: 3 místa – věcné ceny<br />
+          Ženy „E“: 3 místa – věcné ceny<br />
+          Juniorky: 3 místa – věcné ceny<br />
+        </span>
+      </div>
+    </div>
+  </div>
+</section>

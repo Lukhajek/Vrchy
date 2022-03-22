@@ -1,0 +1,24 @@
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td,
+th {
+  padding: 10px;
+}
+
+.headers-row > th {
+  color: #106eea;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}

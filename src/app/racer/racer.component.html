@@ -1,0 +1,126 @@
+<div style="margin-left: 10%; margin-right: 10%">
+  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+  <div *ngIf="!loading">
+    <div class="section-title">
+      <h3>
+        Závodník<br /><span>{{ racer?.name }}</span>
+      </h3>
+    </div>
+    <div style="display: flex; width: 100%; justify-content: center">
+      <div>
+        <h4 style="text-align: center">Body v kategorii {{ racer?.gender }}</h4>
+        <div style="display: flex; justify-content: center">
+          <div>
+            <mat-spinner
+              mode="determinate"
+              [value]="
+                ((racer?.genderResults?.points || 0) /
+                  (racer?.bestInGenderPoints || 0)) *
+                100
+              "
+            ></mat-spinner>
+            <div style="position: relative; top: -70px; left: 35px" class="red">
+              <b style="font-size: 30px">{{ racer?.genderResults?.points }}</b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="width: 50px"></div>
+      <div>
+        <h4 style="text-align: center">
+          Body v kategorii {{ racer?.category }}
+        </h4>
+        <div style="display: flex; justify-content: center">
+          <div>
+            <mat-spinner
+              mode="determinate"
+              [value]="
+                ((racer?.categoryResults?.points || 0) /
+                  (racer?.bestInCategoryPoints || 0)) *
+                100
+              "
+            ></mat-spinner>
+            <div
+              style="position: relative; top: -70px; left: 35px"
+              class="blue"
+            >
+              <b style="font-size: 30px">
+                {{ racer?.categoryResults?.points }}
+              </b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <div style="overflow: auto">
+        <table>
+          <tr>
+            <th>Jméno</th>
+            <td>{{ racer?.name }}</td>
+          </tr>
+          <tr>
+            <th>Tým</th>
+            <td>{{ racer?.team }}</td>
+          </tr>
+          <tr>
+            <th>Ročník</th>
+            <td>{{ racer?.year }}</td>
+          </tr>
+          <tr>
+            <th class="red">Pohlaví</th>
+            <td>{{ racer?.gender }}</td>
+          </tr>
+          <tr>
+            <th class="blue">Kategorie</th>
+            <td>{{ racer?.category }}</td>
+          </tr>
+          <tr>
+            <th class="red">Body v kategorii {{ racer?.gender }}</th>
+            <td>{{ racer?.genderResults?.points }}</td>
+          </tr>
+          <tr>
+            <th class="red">Pořadí v kategorii {{ racer?.gender }}</th>
+            <td>{{ racer?.genderResults?.place }}.</td>
+          </tr>
+          <tr>
+            <th class="blue">Body v kategorii {{ racer?.category }}</th>
+            <td>{{ racer?.categoryResults?.points }}</td>
+          </tr>
+          <tr>
+            <th class="blue">Pořadí v kategorii {{ racer?.category }}</th>
+            <td>{{ racer?.categoryResults?.place }}.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px">
+      <div style="overflow: auto">
+        <table>
+          <tr>
+            <th>Název závodu</th>
+            <th>Pořadí v kategorii {{ racer?.gender }}</th>
+            <th>Body v kategorii {{ racer?.gender }}</th>
+            <th>Pořadí v kategorii {{ racer?.category }}</th>
+            <th>Body v kategorii {{ racer?.category }}</th>
+          </tr>
+          <tr *ngFor="let race of racer?.genderResults?.races">
+            <td>
+              <a routerLink="/vysledky/{{ race?._id }}">{{
+                getRaceById(race?._id)?.name
+              }}</a>
+            </td>
+            <td class="red">{{ race?.place }}.</td>
+            <td class="red">{{ race?.points }}</td>
+            <td class="blue">
+              {{ getCategoryRaceResultsById(race?._id)?.place }}.
+            </td>
+            <td class="blue">
+              {{ getCategoryRaceResultsById(race?._id)?.points }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

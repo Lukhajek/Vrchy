@@ -1,0 +1,48 @@
+<div class="section-title">
+  <h3>
+    <span>Celkové výsledky</span>
+  </h3>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="results">
+  <mat-checkbox [formControl]="showAllRaces">
+    Zobrazit body ze všech závodů
+  </mat-checkbox>
+  <mat-tab-group>
+    <mat-tab *ngFor="let category of results" [label]="category.name">
+      <div style="display: flex; justify-content: center">
+        <div style="overflow: auto; max-height: 800px">
+          <table style="width: 100%">
+            <tr>
+              <th style="text-align: right">Pořadí</th>
+              <th>Jméno</th>
+              <th>Tým</th>
+              <th>Ročník</th>
+              <th>Počet bodů</th>
+              <div *ngIf="showAllRaces.value">
+                <th
+                  *ngFor="let race of races"
+                  style="writing-mode: vertical-rl"
+                >
+                  {{ race.name }}
+                </th>
+              </div>
+            </tr>
+            <tr *ngFor="let result of category.results">
+              <th style="text-align: right">{{ result.place }}.</th>
+              <th>{{ result.racer.name }}</th>
+              <td>{{ result.racer.team }}</td>
+              <td>{{ result.racer.year }}</td>
+              <td>{{ result.points }}</td>
+              <div *ngIf="showAllRaces.value">
+                <td *ngFor="let race of races">
+                  {{ getRacersRace(result.races, race._id)?.points }}
+                </td>
+              </div>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

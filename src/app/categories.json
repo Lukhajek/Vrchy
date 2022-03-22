@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Junioři",
+    "min": 2003,
+    "max": 100,
+    "gender": "Muži"
+  },
+  {
+    "name": "Muži A",
+    "min": 1983,
+    "max": 2002,
+    "gender": "Muži"
+  },
+  {
+    "name": "Muži B",
+    "min": 1973,
+    "max": 1982,
+    "gender": "Muži"
+  },
+  {
+    "name": "Muži C",
+    "min": 1963,
+    "max": 1972,
+    "gender": "Muži"
+  },
+  {
+    "name": "Muži D",
+    "min": 1953,
+    "max": 1962,
+    "gender": "Muži"
+  },
+  {
+    "name": "Muži E",
+    "min": 0,
+    "max": 1952,
+    "gender": "Muži"
+  },
+  {
+    "name": "Juniorky",
+    "min": 2003,
+    "max": 100,
+    "gender": "Ženy"
+  },
+  {
+    "name": "Ženy A",
+    "min": 1988,
+    "max": 2002,
+    "gender": "Ženy"
+  },
+  {
+    "name": "Ženy B",
+    "min": 1978,
+    "max": 1987,
+    "gender": "Ženy"
+  },
+  {
+    "name": "Ženy C",
+    "min": 1968,
+    "max": 1977,
+    "gender": "Ženy"
+  },
+  {
+    "name": "Ženy D",
+    "min": 1958,
+    "max": 1967,
+    "gender": "Ženy"
+  },
+  {
+    "name": "Ženy E",
+    "min": 0,
+    "max": 1957
+  }
+]
