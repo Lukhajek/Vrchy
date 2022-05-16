@@ -74,7 +74,7 @@ export class RaceComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this._AppService.getRacers();
+    await this._AppService.getRacers(true);
     var response = await this._AppService.makeAPIRequest<any>(
       '/admin/finishes',
       'GET',

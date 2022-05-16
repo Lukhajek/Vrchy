@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 
 @Component({
@@ -7,7 +8,7 @@ import { SwUpdate } from '@angular/service-worker';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private swUpdate: SwUpdate) {
+  constructor(private swUpdate: SwUpdate, private router: Router) {
     this.swUpdate
       .checkForUpdate()
       .then((updateAvailible) => {
@@ -16,5 +17,14 @@ export class AppComponent {
         }
       })
       .catch(() => {});
+  }
+
+  scrollAnchor(anchor: string) {
+    this.router.navigate(['/']);
+    setTimeout(() => {
+      this.router.navigate(['/'], {
+        fragment: anchor,
+      });
+    }, 100);
   }
 }

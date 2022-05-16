@@ -13,6 +13,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import {
   MatProgressSpinner,
   MatProgressSpinnerModule,
@@ -52,6 +53,7 @@ import { RacerComponent } from './racer/racer.component';
     ReactiveFormsModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

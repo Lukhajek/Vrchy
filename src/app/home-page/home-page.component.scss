@@ -20,15 +20,18 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-.nav-link2 {
-  text-decoration: none;
-  font-size: large;
-  font-weight: bold;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+.section-title {
+  text-align: center;
+  color: #106eea;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-.nav-link2 > a {
-  color: gray !important;
+.section-title > h2 {
+  margin: 0;
+  background-color: #e7f1fd;
+  padding: 10px 20px 10px 20px;
+  border-radius: 20px;
 }

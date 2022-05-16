@@ -18,6 +18,7 @@
               <th>Jméno</th>
               <th>Tým</th>
               <th>Ročník</th>
+              <th>Kategorie</th>
               <th>Čas</th>
               <th>Počet bodů</th>
             </tr>
@@ -30,6 +31,7 @@
               </th>
               <td>{{ finish.racer.team }}</td>
               <td>{{ finish.racer.year }}</td>
+              <td>{{ finish.category }}</td>
               <td>{{ _AppService.getTimeString(finish.time) }}</td>
               <td>{{ finish.points }}</td>
             </tr>

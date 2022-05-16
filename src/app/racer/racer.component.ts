@@ -25,7 +25,6 @@ export class RacerComponent implements OnInit {
     }
     await this._AppService.getRaces();
     this.loading = false;
-    console.log(this.racer);
   }
 
   get racer(): RacerDetails | undefined {

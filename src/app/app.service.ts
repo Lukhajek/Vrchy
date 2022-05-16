@@ -153,8 +153,8 @@ export class AppService {
     return overallResults;
   }
 
-  async getRacers(): Promise<Racer[] | undefined> {
-    if (this.racers) return this.racers;
+  async getRacers(reload?: boolean): Promise<Racer[] | undefined> {
+    if (this.racers && !reload) return this.racers;
     this.racers = await this.makeAPIRequest('/racers');
     return this.racers;
   }
