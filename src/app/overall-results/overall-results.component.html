@@ -30,7 +30,11 @@
             </tr>
             <tr *ngFor="let result of category.results">
               <th style="text-align: right">{{ result.place }}.</th>
-              <th>{{ result.racer.name }}</th>
+              <th>
+                <a routerLink="/zavodnik/{{ result.racer._id }}">{{
+                  result.racer.name
+                }}</a>
+              </th>
               <td>{{ result.racer.team }}</td>
               <td>{{ result.racer.year }}</td>
               <td>{{ result.points }}</td>

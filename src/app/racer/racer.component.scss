@@ -22,3 +22,17 @@ tr:nth-child(even) {
 .blue {
   color: blue;
 }
+
+.section-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 28px;
+}
+
+.section-title > h3 {
+  margin: 0;
+}
+
+.section-title > h3 > span {
+  color: #106eea;
+}
