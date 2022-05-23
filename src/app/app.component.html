@@ -1,6 +1,10 @@
 <mat-drawer-container [hasBackdrop]="true">
   <mat-drawer #drawer mode="over">
-    <div>
+    <div (click)="drawer.toggle()">
+      <button mat-button routerLink="/">Hlavní strana</button><br />
+      <button mat-button (click)="scrollAnchor('statistiky')">
+        Statistiky závodníků</button
+      ><br />
       <button mat-button (click)="scrollAnchor('zavody')">Závody</button><br />
       <button mat-button routerLink="/vysledky">Celkové výsledky</button><br />
       <a
@@ -10,10 +14,7 @@
       >
         <button mat-button>Propozice</button> </a
       ><br />
-      <a
-        href="http://old.vrchy.maratonstav.cz/historie"
-        style="text-decoration: unset; color: unset"
-      >
+      <a routerLink="/historie" style="text-decoration: unset; color: unset">
         <button mat-button>Historie</button> </a
       ><br />
       <a
@@ -39,103 +40,119 @@
     </div>
   </mat-drawer>
   <mat-drawer-content>
-    <mat-toolbar>
-      <a routerLink="" class="justify-center"
-        ><img src="assets/logo.png" alt="" class="logo"
-      /></a>
-      <div style="flex: 1"></div>
-      <button class="menu-button" mat-icon-button (click)="drawer.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <div class="navbar-links">
-        <button mat-button (click)="scrollAnchor('zavody')">Závody</button>
-        <button mat-button routerLink="/vysledky">Celkové výsledky</button>
-        <a
-          href="/api/propositions/Cesky_pohar_vrchy_22.pdf"
-          target="_blank"
-          style="text-decoration: unset; color: unset"
-        >
-          <button mat-button>Propozice</button>
-        </a>
-        <a
-          href="http://old.vrchy.maratonstav.cz/historie"
-          style="text-decoration: unset; color: unset"
-        >
-          <button mat-button>Historie</button>
-        </a>
-        <a
-          href="http://old.vrchy.maratonstav.cz/galeri"
-          style="text-decoration: unset; color: unset"
-        >
-          <button mat-button>Galerie</button>
-        </a>
-        <a
-          href="https://www.atletika.cz/"
-          style="text-decoration: unset; color: unset"
-          target="_blank"
-        >
-          <button mat-button>ČAS</button>
-        </a>
-        <a
-          href="https://wmra.ch/"
-          target="_blank"
-          style="text-decoration: unset; color: unset"
-        >
-          <button mat-button>WMRA</button>
-        </a>
-      </div>
-    </mat-toolbar>
-
-    <section>
-      <div class="hero">
-        <h1>MARATONSTAV<br /><span>ČESKÝ POHÁR V BĚHU DO VRCHU</span></h1>
-      </div>
-    </section>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <div style="background-color: #ececec">
-      <footer style="margin-top: 50px; margin-bottom: 50px">
-        <h3
-          style="
-            font-weight: 700;
-            font-size: 24px;
-            padding-top: 20px;
-            margin: 0;
-            color: #106eea;
-          "
-        >
-          Kontakt
-        </h3>
-        <div style="display: flex; flex-wrap: wrap">
-          <div style="flex: 1 1 150px">
-            <p>Puškinova 961 <br />542 32 Úpice</p>
-          </div>
-          <div style="flex: 1 1 150px">
-            <p>
-              <strong>KAREL ŠKLÍBA</strong><br />
-              Vedoucím soutěže <br />
-              +420 602 152 296 <br />
-              vrchy@maratonstav.cz
-            </p>
-          </div>
-          <div style="flex: 1 1 150px">
-            <p>
-              <strong>ING. FRANTIŠEK PECHEK</strong><br />
-              Statistik soutěže<br />
-              +420 606 715 583<br />
-              f.pechek@seznam.cz
-            </p>
-          </div>
+    <div
+      style="
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 100vh;
+      "
+    >
+      <mat-toolbar>
+        <a routerLink="" class="justify-center"
+          ><img src="assets/logo.png" alt="" class="logo"
+        /></a>
+        <div style="flex: 1"></div>
+        <button class="menu-button" mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div class="navbar-links">
+          <button mat-button routerLink="/">Hlavní strana</button>
+          <button mat-button (click)="scrollAnchor('statistiky')">
+            Statistiky závodníků
+          </button>
+          <button mat-button (click)="scrollAnchor('zavody')">Závody</button>
+          <button mat-button routerLink="/vysledky">Celkové výsledky</button>
+          <a
+            href="/api/propositions/Cesky_pohar_vrchy_22.pdf"
+            target="_blank"
+            style="text-decoration: unset; color: unset"
+          >
+            <button mat-button>Propozice</button>
+          </a>
+          <a
+            routerLink="/historie"
+            style="text-decoration: unset; color: unset"
+          >
+            <button mat-button>Historie</button>
+          </a>
+          <a
+            href="http://old.vrchy.maratonstav.cz/galeri"
+            style="text-decoration: unset; color: unset"
+          >
+            <button mat-button>Galerie</button>
+          </a>
+          <a
+            href="https://www.atletika.cz/"
+            style="text-decoration: unset; color: unset"
+            target="_blank"
+          >
+            <button mat-button>ČAS</button>
+          </a>
+          <a
+            href="https://wmra.ch/"
+            target="_blank"
+            style="text-decoration: unset; color: unset"
+          >
+            <button mat-button>WMRA</button>
+          </a>
         </div>
-      </footer>
-      <div style="text-align: center">
-        <div>
-          &copy; Copyright
-          <strong><span>TJ MARATONSTAV Úpice, z.s.</span></strong
-          >. All Rights Reserved
+      </mat-toolbar>
+
+      <div style="min-width: 0">
+        <section>
+          <div class="hero" [ngClass]="{ 'hero-nomp': currentURL !== '/' }">
+            <h1 style="flex: 1">
+              MARATONSTAV<br /><span>ČESKÝ POHÁR V BĚHU DO VRCHU</span>
+            </h1>
+          </div>
+        </section>
+
+        <main>
+          <router-outlet></router-outlet>
+        </main>
+      </div>
+
+      <div style="background-color: #ececec">
+        <footer style="margin-top: 50px; margin-bottom: 50px">
+          <h3
+            style="
+              font-weight: 700;
+              font-size: 24px;
+              padding-top: 20px;
+              margin: 0;
+              color: #106eea;
+            "
+          >
+            Kontakt
+          </h3>
+          <div style="display: flex; flex-wrap: wrap">
+            <div style="flex: 1 1 150px">
+              <p>Puškinova 961 <br />542 32 Úpice</p>
+            </div>
+            <div style="flex: 1 1 150px">
+              <p>
+                <strong>KAREL ŠKLÍBA</strong><br />
+                Vedoucím soutěže <br />
+                +420 602 152 296 <br />
+                vrchy@maratonstav.cz
+              </p>
+            </div>
+            <div style="flex: 1 1 150px">
+              <p>
+                <strong>ING. FRANTIŠEK PECHEK</strong><br />
+                Statistik soutěže<br />
+                +420 606 715 583<br />
+                f.pechek@seznam.cz
+              </p>
+            </div>
+          </div>
+        </footer>
+        <div style="text-align: center">
+          <div>
+            &copy; Copyright
+            <strong><span>TJ MARATONSTAV Úpice, z.s.</span></strong
+            >. All Rights Reserved
+          </div>
         </div>
       </div>
     </div>

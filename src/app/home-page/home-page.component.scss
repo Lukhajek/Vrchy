@@ -35,3 +35,12 @@ tr:nth-child(even) {
   padding: 10px 20px 10px 20px;
   border-radius: 20px;
 }
+
+::ng-deep .mat-form-field-wrapper {
+  margin-bottom: -1.25em;
+}
+
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+}

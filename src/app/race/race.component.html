@@ -1,0 +1,85 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+  <div class="section-title">
+    <h3>
+      Závod<br /><span>{{ race?.name }}</span>
+    </h3>
+  </div>
+  <div class="section-title">
+    <h4>Propozice</h4>
+  </div>
+  <div class="container">
+    <a href="{{ race?.proposition }}" target="_blank" *ngIf="race?.proposition">
+      <button mat-raised-button color="primary">
+        <mat-icon>description</mat-icon>Propozice
+      </button>
+    </a>
+    <button
+      mat-raised-button
+      color="primary"
+      disabled="true"
+      *ngIf="!race?.proposition"
+    >
+      Nedostupné
+    </button>
+  </div>
+  <div class="section-title">
+    <h4>Registrace</h4>
+  </div>
+  <div class="container">
+    <a
+      routerLink="/zavod/{{ race?._id }}/registrace"
+      *ngIf="race?.registration"
+    >
+      <button mat-raised-button color="primary">Registrace</button>
+    </a>
+    <button
+      mat-raised-button
+      color="primary"
+      disabled="true"
+      *ngIf="!race?.registration"
+    >
+      Nedostupné
+    </button>
+  </div>
+  <div class="section-title">
+    <h4>Výsledky</h4>
+  </div>
+  <div class="container">
+    <a routerLink="/vysledky/{{ race?._id }}" *ngIf="race?.hasResults">
+      <button mat-raised-button color="primary">Výsledky</button>
+    </a>
+    <button
+      mat-raised-button
+      color="primary"
+      disabled="true"
+      *ngIf="!race?.hasResults"
+    >
+      Nedostupné
+    </button>
+  </div>
+  <div *ngIf="race?.registration">
+    <div class="section-title">
+      <h4>Registrovaní závodníci</h4>
+    </div>
+    <div class="container">
+      <table style="width: 100%">
+        <tr>
+          <th>Jméno</th>
+          <th>Ročník</th>
+          <th>Kategorie</th>
+        </tr>
+        <tr *ngFor="let racer of raceRegistrations">
+          <th *ngIf="racer.racer_id">
+            <a routerLink="/zavodnik/{{ racer.racer_id }}">{{ racer.name }}</a>
+          </th>
+          <th *ngIf="!racer.racer_id">{{ racer.name }}</th>
+          <td>{{ racer.year }}</td>
+          <td>
+            {{ _AppService.getCategoryByYear(racer.year, racer.gender)?.name }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

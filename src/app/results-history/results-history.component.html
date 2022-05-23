@@ -1,0 +1,77 @@
+<div class="section-title">
+  <h3>
+    Výsledky závodu<br /><span>{{ race?.name }}</span> ({{ race?.year }})
+  </h3>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+  <mat-tab-group>
+    <mat-tab *ngFor="let category of sortedResults" [label]="category.category">
+      <div style="display: flex; justify-content: center">
+        <div style="overflow: auto">
+          <table style="width: 100%">
+            <tr>
+              <th style="text-align: right; writing-mode: vertical-rl">
+                Pořadí
+              </th>
+              <th>Jméno</th>
+              <th>Tým</th>
+              <th>Ročník</th>
+              <th
+                *ngIf="
+                  category.category == 'Muži' || category.category == 'Ženy'
+                "
+              >
+                Kategorie
+              </th>
+              <th>Čas</th>
+              <th>Počet bodů</th>
+            </tr>
+            <tr *ngFor="let result of category.results">
+              <th
+                style="text-align: right"
+                *ngIf="
+                  category.category == 'Muži' || category.category == 'Ženy';
+                  else categoryPlace
+                "
+              >
+                {{ result.place }}.
+              </th>
+              <ng-template #categoryPlace
+                ><th style="text-align: right">
+                  {{ result.categoryPlace }}.
+                </th></ng-template
+              >
+              <th>
+                <a routerLink="/zavodnik/{{ result.racer._id }}">{{
+                  result.racer.name
+                }}</a>
+              </th>
+              <td>{{ result.racer.team }}</td>
+              <td>{{ result.racer.year }}</td>
+              <td
+                *ngIf="
+                  category.category == 'Muži' || category.category == 'Ženy'
+                "
+              >
+                {{ result.category }}
+              </td>
+              <td>{{ _AppService.getTimeString(result.time) }}</td>
+              <td
+                *ngIf="
+                  category.category == 'Muži' || category.category == 'Ženy';
+                  else categoryPoints
+                "
+              >
+                {{ result.points }}
+              </td>
+              <ng-template #categoryPoints
+                ><td>{{ result.categoryPoints }}</td></ng-template
+              >
+            </tr>
+          </table>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

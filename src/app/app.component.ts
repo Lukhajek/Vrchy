@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,11 @@ import { SwUpdate } from '@angular/service-worker';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private swUpdate: SwUpdate, private router: Router) {
+  constructor(
+    private swUpdate: SwUpdate,
+    private router: Router,
+    private _AppService: AppService
+  ) {
     this.swUpdate
       .checkForUpdate()
       .then((updateAvailible) => {
@@ -17,6 +22,10 @@ export class AppComponent {
         }
       })
       .catch(() => {});
+  }
+
+  get currentURL(): string {
+    return this.router.url.split('#')[0];
   }
 
   scrollAnchor(anchor: string) {

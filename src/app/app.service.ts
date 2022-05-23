@@ -13,6 +13,8 @@ export interface Race {
   day: string;
   proposition: string;
   hasResults: boolean;
+  registration: boolean;
+  hasMenu: boolean;
 }
 
 export interface Result {
@@ -57,6 +59,50 @@ export interface Category {
   max: number;
 }
 
+export interface HistoryResult {
+  time: number;
+  category: string;
+  categoryPoints: number;
+  points: number;
+  categoryPlace: number;
+  place: number;
+  race: HistoryRace;
+}
+
+export interface RaceHistoryResult {
+  _id: string;
+  race_id: string;
+  racer_id: string;
+  time: number;
+  category: string;
+  categoryPoints: number;
+  points: number;
+  categoryPlace: number;
+  place: number;
+  racer: Racer;
+}
+
+export interface OverallHistoryResult {
+  _id: string;
+  racer_id: string;
+  category: string;
+  points: number;
+  categoryPoints: number;
+  place: number;
+  categoryPlace: number;
+  year: number;
+  racer: Racer;
+}
+
+export interface HistoryRace {
+  _id: string;
+  name: string;
+  date: string;
+  day: string;
+  proposition: string;
+  year: number;
+  hasResults: boolean;
+}
 export interface RacerDetails {
   _id: string;
   name: string;
@@ -80,6 +126,17 @@ export interface RacerDetails {
     place: number;
     races: Result[];
   };
+  historyResults: HistoryResult[];
+}
+
+export interface RaceRegistration {
+  _id: string;
+  name: string;
+  year: number;
+  team: string;
+  gender: 'Muži' | 'Ženy';
+  race_id: string;
+  racer_id?: string;
 }
 
 @Injectable({
@@ -88,9 +145,16 @@ export interface RacerDetails {
 export class AppService {
   races?: Race[];
   results?: RaceResults[] = [];
+  historyResults?: { race_id: string; results: RaceHistoryResult[] }[] = [];
   racers?: Racer[];
   overallResults?: OverallResultsCategory[];
   racersDetails: RacerDetails[] = [];
+  historyRaces?: HistoryRace[];
+  overallHistoryResults: { year: string; results: OverallHistoryResult[] }[] =
+    [];
+  availableOverallHistoryResults?: number[];
+  raceRegistrations: { race_id: string; registrations: RaceRegistration[] }[] =
+    [];
 
   constructor(private _snackBar: MatSnackBar, private http: HttpClient) {}
 
@@ -105,6 +169,10 @@ export class AppService {
         `/api${url}${method == 'GET' ? `?${stringify(body)}` : ''}`,
         {
           body: body,
+          headers: {
+            'Cache-Control': 'no-cache',
+            Pragma: 'no-cache',
+          },
         }
       )
     ).catch((error) => {
@@ -201,5 +269,83 @@ export class AppService {
     this.racersDetails = this.racersDetails.filter((racer) => racer._id != id);
     this.racersDetails.push(racer);
     return racer;
+  }
+
+  async getHistoryRaces(): Promise<HistoryRace[] | undefined> {
+    if (this.historyRaces) return this.historyRaces;
+    var historyRaces = await this.makeAPIRequest<HistoryRace[]>(
+      '/races/history'
+    );
+    if (!historyRaces) return;
+    this.historyRaces = historyRaces;
+    return historyRaces;
+  }
+
+  async getHistoryResults(
+    race_id: string
+  ): Promise<RaceHistoryResult[] | undefined> {
+    let existing = this.historyResults?.find(
+      (results) => results.race_id == race_id
+    );
+    if (existing) return existing.results;
+    var results = await this.makeAPIRequest<RaceHistoryResult[]>(
+      `/races/history/${encodeURIComponent(race_id)}/results`
+    );
+    if (!results) return;
+    this.historyResults = this.historyResults?.filter(
+      (results1) => results1.race_id != race_id
+    );
+    this.historyResults?.push({ race_id, results });
+    return results;
+  }
+
+  async getOverallHistoryResults(
+    year: string | number
+  ): Promise<OverallHistoryResult[] | undefined> {
+    year = year.toString();
+    let existing = this.overallHistoryResults?.find(
+      (results) => results.year == year
+    );
+    if (existing) return existing.results;
+    var results = await this.makeAPIRequest<OverallHistoryResult[]>(
+      `/results/history/${year}`
+    );
+    if (!results) return;
+    this.overallHistoryResults = this.overallHistoryResults?.filter(
+      (results) => results.year != year
+    );
+    this.overallHistoryResults.push({ year, results });
+    return results;
+  }
+
+  async getAvailableOverallHistoryResults(): Promise<number[]> {
+    if (this.availableOverallHistoryResults)
+      return this.availableOverallHistoryResults;
+    var results = await this.makeAPIRequest<number[]>(
+      '/results/history/available'
+    );
+    if (!results) return [];
+    this.availableOverallHistoryResults = results;
+    return results;
+  }
+
+  async getRaceRegistrations(
+    race_id: string,
+    reload: boolean = false
+  ): Promise<RaceRegistration[] | undefined> {
+    var existing = this.raceRegistrations.find(
+      (race) => race.race_id == race_id
+    );
+    if (existing && !reload) return existing.registrations;
+    var registrations = await this.makeAPIRequest<RaceRegistration[]>(
+      `/race/${encodeURIComponent(race_id)}/registrations`
+    );
+
+    if (!registrations) return;
+    this.raceRegistrations = this.raceRegistrations.filter(
+      (race) => race.race_id != race_id
+    );
+    this.raceRegistrations.push({ race_id: race_id, registrations });
+    return registrations;
   }
 }

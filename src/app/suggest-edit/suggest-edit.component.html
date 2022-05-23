@@ -1,0 +1,89 @@
+<div class="section-title">
+  <button
+    mat-button
+    routerLink="/zavodnik/{{ selectedRacer._id }}"
+    *ngIf="selectedRacer"
+  >
+    <mat-icon
+      ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
+    >Statistiky závodníka
+  </button>
+  <h3>Navrhnout úpravy</h3>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="loadingRacers"></mat-progress-bar>
+<div *ngIf="!loadingRacers && !finished">
+  <div class="container">
+    <h4>Závodník:</h4>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Jméno a příjmení</mat-label>
+      <input
+        matInput
+        [matAutocomplete]="auto"
+        [formControl]="racersSearchInput"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let racer of filteredRacers"
+          value="{{ racer.name }} ({{ racer.year }})"
+        >
+          {{ racer.name }} ({{ racer.year }})
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <h4>Úpravy:</h4>
+    <form [formGroup]="form" (submit)="submit()">
+      <mat-form-field appearance="fill">
+        <mat-label>Jméno</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Pohlaví</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="Ženy"> Žena </mat-option>
+          <mat-option value="Muži"> Muž </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ročník</mat-label>
+        <input matInput type="number" formControlName="year" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tým</mat-label>
+        <input matInput formControlName="team" /> </mat-form-field
+      ><br />
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || !selectedRacer || sending"
+      >
+        Zažádat
+      </button>
+    </form>
+  </div>
+</div>
+<div *ngIf="finished">
+  <div class="container">
+    <div class="section-title">
+      <h4>Žádost byla úspěšně <span>odeslána</span>.</h4>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <img
+        src="/assets/img/undraw_done_re_oak4.svg"
+        alt=""
+        style="max-width: 200px"
+      />
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px">
+      <button
+        mat-raised-button
+        routerLink="/zavodnik/{{ selectedRacer?._id }}"
+        style="margin-right: 10px"
+      >
+        Statistiky závodníka
+      </button>
+      <button mat-raised-button routerLink="/" color="primary">
+        Hlavní strana
+      </button>
+    </div>
+  </div>
+</div>

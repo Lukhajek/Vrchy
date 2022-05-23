@@ -2,22 +2,30 @@
   <h3>
     <span>Celkové výsledky</span>
   </h3>
+  <button mat-raised-button color="primary" routerLink="/historie">
+    <mat-icon>description</mat-icon>Archiv výsledků
+  </button>
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div *ngIf="results">
-  <mat-checkbox [formControl]="showAllRaces">
+  <mat-checkbox [formControl]="showAllRaces" style="color: red">
     Zobrazit body ze všech závodů
   </mat-checkbox>
   <mat-tab-group>
     <mat-tab *ngFor="let category of results" [label]="category.name">
       <div style="display: flex; justify-content: center">
-        <div style="overflow: auto; max-height: 800px">
+        <div style="overflow: auto">
           <table style="width: 100%">
             <tr>
-              <th style="text-align: right">Pořadí</th>
+              <th style="text-align: right; writing-mode: vertical-rl">
+                Pořadí
+              </th>
               <th>Jméno</th>
               <th>Tým</th>
               <th>Ročník</th>
+              <th *ngIf="category.name == 'Ženy' || category.name == 'Muži'">
+                Kategorie
+              </th>
               <th>Počet bodů</th>
               <div *ngIf="showAllRaces.value">
                 <th
@@ -37,6 +45,14 @@
               </th>
               <td>{{ result.racer.team }}</td>
               <td>{{ result.racer.year }}</td>
+              <td *ngIf="category.name == 'Ženy' || category.name == 'Muži'">
+                {{
+                  _AppService.getCategoryByYear(
+                    result.racer.year,
+                    result.racer.gender
+                  )?.name
+                }}
+              </td>
               <td>{{ result.points }}</td>
               <div *ngIf="showAllRaces.value">
                 <td *ngFor="let race of races">

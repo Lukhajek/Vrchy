@@ -1,122 +1,193 @@
-<div style="margin-left: 10%; margin-right: 10%">
-  <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
-  <div *ngIf="!loading">
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+  <div class="section-title">
+    <h3>
+      Závodník<br /><span>{{ racer?.name }}</span>
+    </h3>
+  </div>
+  <div class="container">
+    <span>
+      <b
+        >Našli jste v detailech závodníka <span style="color: red">chybu</span>?
+        Navrhněte úpravu <a (click)="edit()" style="cursor: pointer">zde</a>.</b
+      >
+    </span>
+  </div>
+  <div style="display: flex; width: 100%; justify-content: center">
+    <div>
+      <h4 style="text-align: center">Body v kategorii {{ racer?.gender }}</h4>
+      <div style="display: flex; justify-content: center">
+        <div>
+          <div
+            style="
+              position: absolute;
+              width: 100px;
+              height: 100px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+            class="red"
+          >
+            <b style="font-size: 30px">{{ racer?.genderResults?.points }}</b>
+          </div>
+          <mat-spinner
+            mode="determinate"
+            [value]="
+              ((racer?.genderResults?.points || 0) /
+                (racer?.bestInGenderPoints || 0)) *
+              100
+            "
+          ></mat-spinner>
+        </div>
+      </div>
+    </div>
+    <div style="width: 50px"></div>
+    <div>
+      <h4 style="text-align: center">Body v kategorii {{ racer?.category }}</h4>
+      <div style="display: flex; justify-content: center">
+        <div>
+          <div
+            style="
+              position: absolute;
+              width: 100px;
+              height: 100px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            "
+            class="blue"
+          >
+            <b style="font-size: 30px">
+              {{ racer?.categoryResults?.points }}
+            </b>
+          </div>
+          <mat-spinner
+            mode="determinate"
+            [value]="
+              ((racer?.categoryResults?.points || 0) /
+                (racer?.bestInCategoryPoints || 0)) *
+              100
+            "
+          ></mat-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 20px">
+    <div style="overflow: auto">
+      <table style="text-align: left">
+        <tr>
+          <th>Jméno</th>
+          <td>{{ racer?.name }}</td>
+        </tr>
+        <tr>
+          <th>Tým</th>
+          <td>{{ racer?.team }}</td>
+        </tr>
+        <tr>
+          <th>Ročník</th>
+          <td>{{ racer?.year }}</td>
+        </tr>
+        <tr>
+          <th class="red">Pohlaví</th>
+          <td>{{ racer?.gender }}</td>
+        </tr>
+        <tr>
+          <th class="blue">Kategorie</th>
+          <td>{{ racer?.category }}</td>
+        </tr>
+        <tr>
+          <th class="red">Body v kategorii {{ racer?.gender }}</th>
+          <td>{{ racer?.genderResults?.points }}</td>
+        </tr>
+        <tr>
+          <th class="red">Pořadí v kategorii {{ racer?.gender }}</th>
+          <td>{{ racer?.genderResults?.place }}.</td>
+        </tr>
+        <tr>
+          <th class="blue">Body v kategorii {{ racer?.category }}</th>
+          <td>{{ racer?.categoryResults?.points }}</td>
+        </tr>
+        <tr>
+          <th class="blue">Pořadí v kategorii {{ racer?.category }}</th>
+          <td>{{ racer?.categoryResults?.place }}.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="section-title" style="margin-top: 20px">
+    <h4><span>Závody</span></h4>
+  </div>
+  <div style="display: flex; justify-content: center; margin-top: 20px">
+    <div style="overflow: auto">
+      <table>
+        <tr>
+          <th>Název závodu</th>
+          <th>Čas</th>
+          <th>Pořadí v kategorii {{ racer?.gender }}</th>
+          <th>Body v kategorii {{ racer?.gender }}</th>
+          <th>Pořadí v kategorii {{ racer?.category }}</th>
+          <th>Body v kategorii {{ racer?.category }}</th>
+        </tr>
+        <tr *ngFor="let race of racer?.genderResults?.races">
+          <th>
+            <a routerLink="/vysledky/{{ race?._id }}">{{
+              getRaceById(race?._id)?.name
+            }}</a>
+          </th>
+          <td>{{ _AppService.getTimeString(race?.time || 0) }}</td>
+          <td class="red">{{ race?.place }}.</td>
+          <td class="red">{{ race?.points }}</td>
+          <td class="blue">
+            {{ getCategoryRaceResultsById(race?._id)?.place }}.
+          </td>
+          <td class="blue">
+            {{ getCategoryRaceResultsById(race?._id)?.points }}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="section-title" style="margin-top: 20px">
+    <h4><span>Historie</span></h4>
+  </div>
+  <div style="text-align: center">
+    <span *ngIf="historyResults.length == 0"> Žádné závody v historii</span>
+  </div>
+
+  <div *ngFor="let historyResults of historyResultsSortedByYears">
     <div class="section-title">
-      <h3>
-        Závodník<br /><span>{{ racer?.name }}</span>
-      </h3>
+      <h5>
+        {{ historyResults[historyResults.length - 1].race.year }}
+      </h5>
     </div>
-    <div style="display: flex; width: 100%; justify-content: center">
-      <div>
-        <h4 style="text-align: center">Body v kategorii {{ racer?.gender }}</h4>
-        <div style="display: flex; justify-content: center">
-          <div>
-            <mat-spinner
-              mode="determinate"
-              [value]="
-                ((racer?.genderResults?.points || 0) /
-                  (racer?.bestInGenderPoints || 0)) *
-                100
-              "
-            ></mat-spinner>
-            <div style="position: relative; top: -70px; left: 35px" class="red">
-              <b style="font-size: 30px">{{ racer?.genderResults?.points }}</b>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="width: 50px"></div>
-      <div>
-        <h4 style="text-align: center">
-          Body v kategorii {{ racer?.category }}
-        </h4>
-        <div style="display: flex; justify-content: center">
-          <div>
-            <mat-spinner
-              mode="determinate"
-              [value]="
-                ((racer?.categoryResults?.points || 0) /
-                  (racer?.bestInCategoryPoints || 0)) *
-                100
-              "
-            ></mat-spinner>
-            <div
-              style="position: relative; top: -70px; left: 35px"
-              class="blue"
-            >
-              <b style="font-size: 30px">
-                {{ racer?.categoryResults?.points }}
-              </b>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="display: flex; justify-content: center">
-      <div style="overflow: auto">
-        <table style="text-align: left">
-          <tr>
-            <th>Jméno</th>
-            <td>{{ racer?.name }}</td>
-          </tr>
-          <tr>
-            <th>Tým</th>
-            <td>{{ racer?.team }}</td>
-          </tr>
-          <tr>
-            <th>Ročník</th>
-            <td>{{ racer?.year }}</td>
-          </tr>
-          <tr>
-            <th class="red">Pohlaví</th>
-            <td>{{ racer?.gender }}</td>
-          </tr>
-          <tr>
-            <th class="blue">Kategorie</th>
-            <td>{{ racer?.category }}</td>
-          </tr>
-          <tr>
-            <th class="red">Body v kategorii {{ racer?.gender }}</th>
-            <td>{{ racer?.genderResults?.points }}</td>
-          </tr>
-          <tr>
-            <th class="red">Pořadí v kategorii {{ racer?.gender }}</th>
-            <td>{{ racer?.genderResults?.place }}.</td>
-          </tr>
-          <tr>
-            <th class="blue">Body v kategorii {{ racer?.category }}</th>
-            <td>{{ racer?.categoryResults?.points }}</td>
-          </tr>
-          <tr>
-            <th class="blue">Pořadí v kategorii {{ racer?.category }}</th>
-            <td>{{ racer?.categoryResults?.place }}.</td>
-          </tr>
-        </table>
-      </div>
-    </div>
+
     <div style="display: flex; justify-content: center; margin-top: 20px">
       <div style="overflow: auto">
         <table>
           <tr>
             <th>Název závodu</th>
+            <th>Kategorie</th>
+            <th>Čas</th>
             <th>Pořadí v kategorii {{ racer?.gender }}</th>
             <th>Body v kategorii {{ racer?.gender }}</th>
-            <th>Pořadí v kategorii {{ racer?.category }}</th>
-            <th>Body v kategorii {{ racer?.category }}</th>
+            <th>Pořadí v kategorii</th>
+            <th>Body v kategorii</th>
           </tr>
-          <tr *ngFor="let race of racer?.genderResults?.races">
-            <td>
-              <a routerLink="/vysledky/{{ race?._id }}">{{
-                getRaceById(race?._id)?.name
+          <tr *ngFor="let result of historyResults">
+            <th>
+              <a routerLink="/vysledky/historie/{{ result.race._id }}">{{
+                result.race.name
               }}</a>
-            </td>
-            <td class="red">{{ race?.place }}.</td>
-            <td class="red">{{ race?.points }}</td>
+            </th>
+            <td>{{ result.category }}</td>
+            <td>{{ _AppService.getTimeString(result.time) }}</td>
+            <td class="red">{{ result.place }}.</td>
+            <td class="red">{{ result.points }}</td>
+            <td class="blue">{{ result.categoryPlace }}.</td>
             <td class="blue">
-              {{ getCategoryRaceResultsById(race?._id)?.place }}.
-            </td>
-            <td class="blue">
-              {{ getCategoryRaceResultsById(race?._id)?.points }}
+              {{ result.categoryPoints }}
             </td>
           </tr>
         </table>

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppService, Race, RacerDetails, Result } from '../app.service';
+import {
+  AppService,
+  HistoryResult,
+  Race,
+  RacerDetails,
+  Result,
+} from '../app.service';
 
 @Component({
   selector: 'app-racer',
@@ -12,7 +18,7 @@ export class RacerComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private _AppService: AppService,
+    public _AppService: AppService,
     private router: Router
   ) {}
 
@@ -37,11 +43,37 @@ export class RacerComponent implements OnInit {
     return this._AppService.races || [];
   }
 
+  get historyResults(): HistoryResult[] {
+    let historyResults = this.racer?.historyResults.sort(
+      (a, b) => a.race.year - b.race.year
+    );
+    return historyResults || [];
+  }
+
+  get historyResultsSortedByYears(): HistoryResult[][] {
+    let historyResults: HistoryResult[][] = [];
+    this.historyResults.forEach((historyResult) => {
+      let lastYear = historyResults[historyResults.length - 1];
+      if (
+        lastYear?.[lastYear.length - 1]?.race?.year == historyResult.race.year
+      )
+        lastYear.push(historyResult);
+      else historyResults.push([historyResult]);
+    });
+    return historyResults;
+  }
+
   getRaceById(_id: any): Race | undefined {
     return this.races.find((race) => race._id == _id);
   }
 
   getCategoryRaceResultsById(_id: any): Result | undefined {
     return this.racer?.categoryResults?.races.find((race) => race._id == _id);
+  }
+
+  edit() {
+    this.router.navigate(['upravy'], {
+      queryParams: { racer_id: this.racer?._id },
+    });
   }
 }

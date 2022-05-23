@@ -24,6 +24,14 @@ import { ResultsComponent } from './results/results.component';
 import { OverallResultsComponent } from './overall-results/overall-results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RacerComponent } from './racer/racer.component';
+import { ResultsHistoryComponent } from './results-history/results-history.component';
+import { HistoryComponent } from './history/history.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { OverallHistoryResultsComponent } from './overall-history-results/overall-history-results.component';
+import { SuggestEditComponent } from './suggest-edit/suggest-edit.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +39,10 @@ import { RacerComponent } from './racer/racer.component';
     ResultsComponent,
     OverallResultsComponent,
     RacerComponent,
+    ResultsHistoryComponent,
+    HistoryComponent,
+    OverallHistoryResultsComponent,
+    SuggestEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +66,12 @@ import { RacerComponent } from './racer/racer.component';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

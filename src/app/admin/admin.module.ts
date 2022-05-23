@@ -13,9 +13,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordsComponent } from './passwords/passwords.component';
+import { EditsComponent } from './edits/edits.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
-  declarations: [RaceComponent, PasswordsComponent],
+  declarations: [RaceComponent, PasswordsComponent, EditsComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -28,6 +30,7 @@ import { PasswordsComponent } from './passwords/passwords.component';
     MatButtonModule,
     MatCheckboxModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
   ],
 })
 export class AdminModule {}

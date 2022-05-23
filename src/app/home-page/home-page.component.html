@@ -10,11 +10,82 @@
     </div>
   </div>
 </section>
+<section id="statistiky" style="padding-top: 0">
+  <div class="container">
+    <div class="section-title">
+      <h2>Statistiky závodníků</h2>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <span>
+        <b
+          >Našli jste u detailů závodníků <span style="color: red">chybu</span>?
+          Navrhněte úpravu <a routerLink="/upravy">zde</a>.</b
+        >
+      </span>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <span>
+        <b
+          >Zadejte jméno a příjmení, vyberte závodníka ze seznamu a zobrazte
+          statistiky:</b
+        >
+      </span>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <ul>
+        <li>Aktuální body</li>
+        <li>Aktuální pořadí</li>
+        <li>Zůčastněné závody</li>
+        <li>Zůčastněné závody v minulých ročnících</li>
+      </ul>
+    </div>
+
+    <div style="display: flex; justify-content: center; overflow: hidden">
+      <div style="width: 30%; min-width: 250px">
+        <mat-form-field
+          class="example-full-width"
+          appearance="fill"
+          style="width: 100%; text-align: center; padding-bottom: 0"
+        >
+          <mat-label>Jméno a příjmení</mat-label>
+          <input
+            matInput
+            [matAutocomplete]="auto"
+            [formControl]="racersSearchInput"
+          />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let racer of filteredRacers"
+              value="{{ racer.name }} ({{ racer.year }})"
+            >
+              {{ racer.name }} ({{ racer.year }})
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          style="width: 100%"
+          [disabled]="!selectedRacer"
+          type="submit"
+          (click)="showStatistics()"
+        >
+          Zobrazit statistiky
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
 <section id="zavody" style="padding-top: 0">
   <div class="container">
     <div class="section-title">
       <h2>Závody</h2>
     </div>
+  </div>
+  <div style="display: flex; justify-content: center; margin-bottom: 10px">
+    <button mat-raised-button color="primary" routerLink="/historie">
+      <mat-icon>description</mat-icon>Archiv výsledků
+    </button>
   </div>
 
   <div style="display: flex; justify-content: center">
@@ -29,14 +100,22 @@
           <th>Název závodu</th>
           <th>Datum</th>
           <th>Den</th>
-          <th>Propozice</th>
+          <th>Info</th>
           <th>Výsledky</th>
         </tr>
         <tr *ngFor="let race of races">
-          <th>{{ race.name }}</th>
+          <th *ngIf="!race.hasResults">{{ race.name }}</th>
+          <th *ngIf="race.hasResults">
+            <a routerLink="/vysledky/{{ race._id }}">{{ race.name }}</a>
+          </th>
           <td>{{ race.date }}</td>
           <td>{{ race.day }}</td>
-          <td>
+          <td *ngIf="race.hasMenu">
+            <a routerLink="/zavod/{{ race._id }}">
+              Info <span *ngIf="race.registration">+reg.</span>
+            </a>
+          </td>
+          <td *ngIf="!race.hasMenu">
             <a
               [href]="race.proposition"
               target="_blank"

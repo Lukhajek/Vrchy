@@ -1,33 +1,3 @@
-table {
-  border: solid 1px black;
-  border-radius: 25px;
-}
-
-tr {
-  border-bottom: 1px solid #ddd;
-}
-
-td,
-th {
-  padding: 10px;
-}
-
-.headers-row > th {
-  color: #106eea;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.red {
-  color: #552586;
-}
-
-.blue {
-  color: #9969c7;
-}
-
 .section-title {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -58,6 +28,28 @@ tr:nth-child(even) {
 
 .section-title > h5 > span {
   color: #106eea;
+}
+
+table {
+  border-radius: 25px;
+  text-align: left;
+}
+
+tr {
+  border-bottom: 1px solid #ddd;
+}
+
+td,
+th {
+  padding: 10px;
+}
+
+.headers-row > th {
+  color: #106eea;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 
 .container {

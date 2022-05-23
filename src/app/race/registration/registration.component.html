@@ -1,0 +1,114 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+  <div class="section-title">
+    <button mat-button routerLink="/zavod/{{ race?._id }}">
+      <mat-icon
+        ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
+      >Detaily závodu
+    </button>
+    <h3>
+      Registrace na závod<br /><span>{{ race?.name }}</span>
+    </h3>
+  </div>
+  <div class="container">
+    <form [formGroup]="form" (submit)="submit()" *ngIf="!finished">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Jméno a příjmení</mat-label>
+        <input matInput [matAutocomplete]="auto" formControlName="name" />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option
+            *ngFor="let racer of filteredRacers"
+            value="{{ racer.name }} ({{ racer.year }})"
+          >
+            {{ racer.name }} ({{ racer.year }})
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Pohlaví</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="Ženy"> Žena </mat-option>
+          <mat-option value="Muži"> Muž </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ročník</mat-label>
+        <input matInput type="number" formControlName="year" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Tým</mat-label>
+        <input matInput formControlName="team" /> </mat-form-field
+      ><br />
+      <div *ngIf="alreadyRegistered">
+        <span style="color: red"
+          >Tento závodník je již v tomto závodě registrován</span
+        ><br />
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || sending || alreadyRegistered"
+      >
+        Odeslat
+      </button>
+    </form>
+    <div *ngIf="finished">
+      <div class="section-title">
+        <h4>Registrace byla úspěšně <span>odeslána</span>.</h4>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <img
+          src="/assets/img/undraw_done_re_oak4.svg"
+          alt=""
+          style="max-width: 200px"
+        />
+      </div>
+    </div>
+    <div [ngClass]="{ 'center-table': finished }">
+      <div style="max-width: fit-content">
+        <div style="display: flex; justify-content: center">
+          <h4 style="margin-bottom: 0">Přehled</h4>
+        </div>
+
+        <table>
+          <tr>
+            <th>Jméno</th>
+            <td>{{ data.name }}</td>
+          </tr>
+          <tr>
+            <th>Pohlaví</th>
+            <td>{{ data.gender }}</td>
+          </tr>
+          <tr>
+            <th>Ročník</th>
+            <td>{{ data.year }}</td>
+          </tr>
+          <tr>
+            <th>Kategorie</th>
+            <td>{{ category }}</td>
+          </tr>
+          <tr>
+            <th>Tým</th>
+            <td>{{ data.team }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div
+      style="margin-top: 20px; display: flex; justify-content: center"
+      *ngIf="finished"
+    >
+      <button mat-raised-button (click)="reload()" style="margin-right: 10px">
+        Další Registrace
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        routerLink="/zavod/{{ race?._id }}"
+      >
+        Detaily závodu
+      </button>
+    </div>
+  </div>
+</div>

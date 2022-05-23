@@ -68,6 +68,7 @@
   {
     "name": "Ženy E",
     "min": 0,
-    "max": 1957
+    "max": 1957,
+    "gender": "Ženy"
   }
 ]

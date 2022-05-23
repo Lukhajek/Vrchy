@@ -1,0 +1,14 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+<div *ngIf="!loading">
+  <div class="section-title" *ngIf="type == 'approve'">
+    <h3>Žádost úspěšně přijata</h3>
+  </div>
+  <div class="section-title" *ngIf="type == 'deny'">
+    <h3>Žádost odmítnuta</h3>
+  </div>
+  <div class="container">
+    <button mat-raised-button color="primary" routerLink="/">
+      Hlavní strana
+    </button>
+  </div>
+</div>

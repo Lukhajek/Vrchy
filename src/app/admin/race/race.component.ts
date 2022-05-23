@@ -42,7 +42,7 @@ export class RaceComponent implements OnInit {
 
     this.newRacerForm = fb.group({
       name: ['', Validators.required],
-      team: ['', Validators.required],
+      team: [''],
       year: ['', [Validators.required]],
       gender: ['', Validators.required],
       category: ['', Validators.required],
