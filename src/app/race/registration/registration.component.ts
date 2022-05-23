@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppService, Race, Racer, RaceRegistration } from 'src/app/app.service';
@@ -21,7 +22,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private ActivatedRoute: ActivatedRoute,
     private _AppService: AppService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private titleService: Title
   ) {
     this.form = fb.group({
       name: ['', Validators.required],
@@ -38,6 +40,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.router.navigate(['']);
       return;
     }
+    this.titleService.setTitle(
+      `Registrace na závod ${this.race?.name} | Vrchy`
+    );
     this.race = races.find((race1) => race1._id == _id);
     if (!this.race || !this.race.registration) {
       this.router.navigate(['']);

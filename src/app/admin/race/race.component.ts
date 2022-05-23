@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { duration, min } from 'moment';
 import { AppService, Category, Race, Racer } from 'src/app/app.service';
@@ -31,7 +32,8 @@ export class RaceComponent implements OnInit {
     private router: Router,
     public _AppService: AppService,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {
     this.dontCountCategories = fb.group(
       this.categories.reduce((previousValue, currentValue) => {
@@ -74,6 +76,7 @@ export class RaceComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.titleService.setTitle('Přidávání výsledků | Vrchy');
     await this._AppService.getRacers(true);
     var response = await this._AppService.makeAPIRequest<any>(
       '/admin/finishes',

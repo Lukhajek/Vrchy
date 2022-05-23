@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService, Race, RaceResults } from '../app.service';
 
@@ -14,7 +15,8 @@ export class ResultsComponent implements OnInit {
   constructor(
     private _ActivatedRoute: ActivatedRoute,
     public _AppService: AppService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -26,6 +28,7 @@ export class ResultsComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
+    this.titleService.setTitle(`Výsledky závodu ${this.race.name} | Vrchy`);
     this._AppService.getResults(this.race._id).then(() => {
       this.loading = false;
     });

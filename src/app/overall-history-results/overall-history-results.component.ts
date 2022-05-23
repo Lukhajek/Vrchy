@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService, OverallHistoryResult } from '../app.service';
 
@@ -14,10 +15,16 @@ export class OverallHistoryResultsComponent implements OnInit {
   constructor(
     private _ActivatedRoute: ActivatedRoute,
     public _AppService: AppService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   async ngOnInit() {
+    this.titleService.setTitle(
+      `Celkové výsledky ${
+        this._ActivatedRoute.snapshot.params?.['year'] || '2021'
+      } | Vrchy`
+    );
     var results = await this._AppService.getOverallHistoryResults(
       this._ActivatedRoute.snapshot.params?.['year'] || '2021'
     );

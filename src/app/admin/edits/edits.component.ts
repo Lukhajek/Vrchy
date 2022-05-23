@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { stringify } from 'query-string';
 import { AppService } from 'src/app/app.service';
@@ -15,13 +16,15 @@ export class EditsComponent implements OnInit {
 
   constructor(
     private ActivatedRoute: ActivatedRoute,
-    private _AppService: AppService
+    private _AppService: AppService,
+    private titleService: Title
   ) {
     this._id = this.ActivatedRoute.snapshot.params['id'];
     this.type = this.ActivatedRoute.snapshot.queryParams['type'];
   }
 
   async ngOnInit() {
+    this.titleService.setTitle('Zpracování úpravy | Vrchy');
     this._AppService
       .makeAPIRequest(
         `/admin/edits/${encodeURIComponent(this._id)}?${stringify({

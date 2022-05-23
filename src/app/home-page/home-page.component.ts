@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppService, Race, Racer } from '../app.service';
 
@@ -13,9 +14,14 @@ export class HomePageComponent implements OnInit {
   loadingRacers: boolean = true;
   racersSearchInput = new FormControl('');
 
-  constructor(private _AppService: AppService, private router: Router) {}
+  constructor(
+    private _AppService: AppService,
+    private router: Router,
+    private titleService: Title
+  ) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Maratonstav Český pohár v běhu do vrchu');
     this._AppService.getRaces().then(() => {
       this.loadingRaces = false;
     });

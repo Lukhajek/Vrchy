@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AppService, HistoryRace } from '../app.service';
 
 @Component({
@@ -10,9 +11,12 @@ export class HistoryComponent implements OnInit {
   loadingRaces: boolean = true;
   historyRacesSorted: { year: number; races: HistoryRace[] }[] = [];
 
-  constructor(public _AppService: AppService) {}
+  constructor(public _AppService: AppService, private titleService: Title) {
+    this.titleService.setTitle('Historie | Vrchy');
+  }
 
   async ngOnInit() {
+    this.titleService.setTitle('Historie | Vrchy');
     this._AppService.getHistoryRaces().then(() => {
       this.historyRacesSorted = this.historyRacesSort();
       this.loadingRaces = false;

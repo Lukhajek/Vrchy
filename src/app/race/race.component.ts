@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService, Race, RaceRegistration } from '../app.service';
 
@@ -13,7 +14,8 @@ export class RaceComponent implements OnInit {
   constructor(
     public _AppService: AppService,
     private ActivatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {}
 
   async ngOnInit() {
@@ -22,6 +24,7 @@ export class RaceComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
+    this.titleService.setTitle(`${this.race.name} | Vrchy`);
     await this._AppService.getRaceRegistrations(this.race._id);
     this.loading = false;
   }

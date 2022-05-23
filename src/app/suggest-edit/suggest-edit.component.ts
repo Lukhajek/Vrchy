@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppService, Racer } from '../app.service';
@@ -25,7 +26,8 @@ export class SuggestEditComponent implements OnInit, OnDestroy {
   constructor(
     private _AppService: AppService,
     private fb: FormBuilder,
-    private ActivatedRoute: ActivatedRoute
+    private ActivatedRoute: ActivatedRoute,
+    private titleService: Title
   ) {
     this.form = fb.group({
       name: ['', Validators.required],
@@ -36,6 +38,7 @@ export class SuggestEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Návrh na úpravu závodníka | Vrchy');
     this._AppService.getRacers().then(() => {
       this.loadingRacers = false;
 

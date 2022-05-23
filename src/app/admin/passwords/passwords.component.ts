@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppService, Race } from 'src/app/app.service';
 
@@ -15,7 +16,8 @@ export class PasswordsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _AppService: AppService,
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) {
     this.form = fb.group({
       password: ['', Validators.required],
@@ -29,6 +31,7 @@ export class PasswordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Vytváření hesla | Vrchy');
     this._AppService.getRaces();
   }
 

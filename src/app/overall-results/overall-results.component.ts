@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import {
   AppService,
   OverallResultsCategory,
@@ -16,9 +17,10 @@ export class OverallResultsComponent implements OnInit {
   loading: boolean = true;
   showAllRaces = new FormControl(false);
 
-  constructor(public _AppService: AppService) {}
+  constructor(public _AppService: AppService, private titleService: Title) {}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Celkové výsledky | Vrchy');
     this._AppService.getRaces();
     this._AppService.getOverallResults().then(() => {
       this.loading = false;
