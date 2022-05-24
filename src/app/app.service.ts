@@ -9,7 +9,8 @@ import categories from './categories.json';
 export interface Race {
   _id: string;
   name: string;
-  date: string;
+  date?: string;
+  dateString?: string;
   day: string;
   proposition: string;
   hasResults: boolean;
@@ -347,5 +348,16 @@ export class AppService {
     );
     this.raceRegistrations.push({ race_id: race_id, registrations });
     return registrations;
+  }
+
+  formatDate(dateString: string) {
+    let date = new Date(dateString);
+    return (
+      ('0' + date.getDate()).slice(-2) +
+      '.' +
+      ('0' + (date.getMonth() + 1)).slice(-2) +
+      '.' +
+      date.getFullYear()
+    );
   }
 }

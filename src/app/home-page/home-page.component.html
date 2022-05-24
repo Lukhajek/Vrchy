@@ -1,3 +1,4 @@
+<ngx-json-ld [json]="schema" *ngIf="schema"></ngx-json-ld>
 <section id="celkove-vysledky">
   <div class="container">
     <div class="section-title">
@@ -114,7 +115,8 @@
               >{{ race.name }}</a
             >
           </th>
-          <td>{{ race.date }}</td>
+          <td *ngIf="race.date">{{ _AppService.formatDate(race.date) }}</td>
+          <td *ngIf="!race.date">{{ race.dateString }}</td>
           <td>{{ race.day }}</td>
           <td *ngIf="race.hasMenu">
             <a href="/zavod/{{ race._id }}" routerLink="/zavod/{{ race._id }}">

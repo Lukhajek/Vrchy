@@ -16,6 +16,7 @@ import {
 })
 export class RacerComponent implements OnInit {
   loading: boolean = true;
+  schema?: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,7 +31,14 @@ export class RacerComponent implements OnInit {
     );
     if (!this.racer) {
       this.router.navigate(['']);
+      return;
     }
+    this.schema = {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: this.racer.name,
+      url: 'https://vrchy.maratonstav.cz/zavodnik/' + this.racer._id,
+    };
     this.titleService.setTitle(`Závodník ${this.racer?.name} | Vrchy`);
     await this._AppService.getRaces();
     this.loading = false;

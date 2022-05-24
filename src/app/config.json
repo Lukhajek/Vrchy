@@ -1,0 +1,14 @@
+{
+  "schemas": {
+    "event": {
+      "@context": "https://schema.org",
+      "@type": "SportsEvent",
+      "name": "Maratonstav Český pohár v běhu do vrchu",
+      "sport": "Running",
+      "startDate": "2022-03-26",
+      "endDate": "2022-10-29",
+      "eventAttendanceMode": "OfflineEventAttendanceMode",
+      "url": "https://vrchy.maratonstav.cz/"
+    }
+  }
+}

@@ -32,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
 import { OverallHistoryResultsComponent } from './overall-history-results/overall-history-results.component';
 import { SuggestEditComponent } from './suggest-edit/suggest-edit.component';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +73,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxJsonLdModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

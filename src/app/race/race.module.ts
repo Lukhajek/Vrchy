@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { NgxJsonLdModule } from '@ngx-lite/json-ld';
 
 @NgModule({
   declarations: [RaceComponent, RegistrationComponent],
@@ -27,6 +28,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatAutocompleteModule,
     MatSelectModule,
     MatIconModule,
+    NgxJsonLdModule,
   ],
 })
 export class RaceModule {}

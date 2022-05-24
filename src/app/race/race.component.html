@@ -1,3 +1,4 @@
+<ngx-json-ld [json]="schema" *ngIf="schema"></ngx-json-ld>
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div *ngIf="!loading">
   <div class="section-title">
@@ -12,7 +13,14 @@
     <table>
       <tr>
         <th>Datum</th>
-        <td>{{ race?.date }} ({{ race?.day }})</td>
+        <td>
+          {{
+            race?.date
+              ? _AppService.formatDate(race?.date || "")
+              : race?.dateString
+          }}
+          ({{ race?.day }})
+        </td>
       </tr>
     </table>
   </div>

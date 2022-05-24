@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppService, Race, Racer } from '../app.service';
+import config from '../config.json';
 
 @Component({
   selector: 'app-home-page',
@@ -13,9 +14,10 @@ export class HomePageComponent implements OnInit {
   loadingRaces: boolean = true;
   loadingRacers: boolean = true;
   racersSearchInput = new FormControl('');
+  schema?: any;
 
   constructor(
-    private _AppService: AppService,
+    public _AppService: AppService,
     private router: Router,
     private titleService: Title
   ) {}
@@ -24,6 +26,18 @@ export class HomePageComponent implements OnInit {
     this.titleService.setTitle('Maratonstav Český pohár v běhu do vrchu');
     this._AppService.getRaces().then(() => {
       this.loadingRaces = false;
+
+      this.schema = {
+        ...config.schemas.event,
+        subEvent: this.races.map((race) => {
+          return {
+            '@type': 'SportsEvent',
+            name: race.name,
+            startDate: race.date?.split('T')[0],
+            url: `https://vrchy.maratonstav.cz/zavod/${race._id}`,
+          };
+        }),
+      };
     });
 
     this._AppService.getRacers().then(() => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService, Race, RaceRegistration } from '../app.service';
+import config from '../config.json';
 
 @Component({
   selector: 'app-race',
@@ -10,6 +11,7 @@ import { AppService, Race, RaceRegistration } from '../app.service';
 })
 export class RaceComponent implements OnInit {
   loading: boolean = true;
+  schema?: any;
 
   constructor(
     public _AppService: AppService,
@@ -24,6 +26,14 @@ export class RaceComponent implements OnInit {
       this.router.navigate(['']);
       return;
     }
+    this.schema = {
+      '@context': 'https://schema.org',
+      '@type': 'SportsEvent',
+      name: this.race.name,
+      startDate: this.race.date?.split('T')[0],
+      superEvent: config.schemas.event,
+      url: `https://vrchy.maratonstav.cz/zavod/${this.race._id}`,
+    };
     this.titleService.setTitle(`${this.race.name} | Vrchy`);
     await this._AppService.getRaceRegistrations(this.race._id);
     this.loading = false;
