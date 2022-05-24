@@ -1,11 +1,14 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <div *ngIf="!loading">
   <div class="section-title">
-    <button mat-button routerLink="/zavod/{{ race?._id }}">
-      <mat-icon
-        ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
-      >Detaily závodu
-    </button>
+    <a href="/zavod/{{ race?._id }}" routerLink="/zavod/{{ race?._id }}">
+      <button mat-button>
+        <mat-icon
+          ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
+        >Detaily závodu
+      </button>
+    </a>
+
     <h3>
       Registrace na závod<br /><span>{{ race?.name }}</span>
     </h3>
@@ -102,13 +105,9 @@
       <button mat-raised-button (click)="reload()" style="margin-right: 10px">
         Další Registrace
       </button>
-      <button
-        mat-raised-button
-        color="primary"
-        routerLink="/zavod/{{ race?._id }}"
-      >
-        Detaily závodu
-      </button>
+      <a href="/zavod/{{ race?._id }}" routerLink="/zavod/{{ race?._id }}">
+        <button mat-raised-button color="primary">Detaily závodu</button>
+      </a>
     </div>
   </div>
 </div>

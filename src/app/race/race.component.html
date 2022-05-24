@@ -39,6 +39,7 @@
   </div>
   <div class="container">
     <a
+      href="/zavod/{{ race?._id }}/registrace"
       routerLink="/zavod/{{ race?._id }}/registrace"
       *ngIf="race?.registration"
     >
@@ -57,7 +58,11 @@
     <h4>Výsledky</h4>
   </div>
   <div class="container">
-    <a routerLink="/vysledky/{{ race?._id }}" *ngIf="race?.hasResults">
+    <a
+      href="/vysledky/{{ race?._id }}"
+      routerLink="/vysledky/{{ race?._id }}"
+      *ngIf="race?.hasResults"
+    >
       <button mat-raised-button color="primary">Výsledky</button>
     </a>
     <button
@@ -82,7 +87,11 @@
         </tr>
         <tr *ngFor="let racer of raceRegistrations">
           <th *ngIf="racer.racer_id">
-            <a routerLink="/zavodnik/{{ racer.racer_id }}">{{ racer.name }}</a>
+            <a
+              href="/zavodnik/{{ racer.racer_id }}"
+              routerLink="/zavodnik/{{ racer.racer_id }}"
+              >{{ racer.name }}</a
+            >
           </th>
           <th *ngIf="!racer.racer_id">{{ racer.name }}</th>
           <td>{{ racer.year }}</td>

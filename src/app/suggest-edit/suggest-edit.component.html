@@ -1,13 +1,15 @@
 <div class="section-title">
-  <button
-    mat-button
+  <a
+    href="/zavodnik/{{ selectedRacer._id }}"
     routerLink="/zavodnik/{{ selectedRacer._id }}"
     *ngIf="selectedRacer"
   >
-    <mat-icon
-      ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
-    >Statistiky závodníka
-  </button>
+    <button mat-button>
+      <mat-icon
+        ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
+      >Statistiky závodníka
+    </button>
+  </a>
   <h3>Navrhnout úpravy</h3>
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="loadingRacers"></mat-progress-bar>
@@ -74,16 +76,16 @@
       />
     </div>
     <div style="display: flex; justify-content: center; margin-top: 20px">
-      <button
-        mat-raised-button
+      <a
+        href="/zavodnik/{{ selectedRacer?._id }}"
         routerLink="/zavodnik/{{ selectedRacer?._id }}"
-        style="margin-right: 10px"
-      >
+      ></a>
+      <button mat-raised-button style="margin-right: 10px">
         Statistiky závodníka
       </button>
-      <button mat-raised-button routerLink="/" color="primary">
-        Hlavní strana
-      </button>
+      <a href="/" routerLink="/">
+        <button mat-raised-button color="primary">Hlavní strana</button>
+      </a>
     </div>
   </div>
 </div>

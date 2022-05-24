@@ -1,9 +1,11 @@
 <div class="section-title">
-  <button mat-button routerLink="/zavod/{{ race?._id }}" *ngIf="race?.hasMenu">
-    <mat-icon
-      ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
-    >Detaily závodu
-  </button>
+  <a href="/zavod/{{ race?._id }}" routerLink="/zavod/{{ race?._id }}">
+    <button mat-button *ngIf="race?.hasMenu">
+      <mat-icon
+        ><span class="material-symbols-outlined"> arrow_back </span></mat-icon
+      >Detaily závodu
+    </button>
+  </a>
   <h3>
     Výsledky závodu<br /><span>{{ race?.name }}</span>
   </h3>
@@ -34,9 +36,11 @@
             <tr *ngFor="let finish of category.results">
               <th style="text-align: right">{{ finish.place }}.</th>
               <th>
-                <a routerLink="/zavodnik/{{ finish.racer._id }}">{{
-                  finish.racer.name
-                }}</a>
+                <a
+                  href="/zavodnik/{{ finish.racer._id }}"
+                  routerLink="/zavodnik/{{ finish.racer._id }}"
+                  >{{ finish.racer.name }}</a
+                >
               </th>
               <td>{{ finish.racer.team }}</td>
               <td>{{ finish.racer.year }}</td>

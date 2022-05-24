@@ -132,9 +132,11 @@
         </tr>
         <tr *ngFor="let race of racer?.genderResults?.races">
           <th>
-            <a routerLink="/vysledky/{{ race?._id }}">{{
-              getRaceById(race?._id)?.name
-            }}</a>
+            <a
+              href="/vysledky/{{ race?._id }}"
+              routerLink="/vysledky/{{ race?._id }}"
+              >{{ getRaceById(race?._id)?.name }}</a
+            >
           </th>
           <td>{{ _AppService.getTimeString(race?.time || 0) }}</td>
           <td class="red">{{ race?.place }}.</td>
@@ -177,9 +179,11 @@
           </tr>
           <tr *ngFor="let result of historyResults">
             <th>
-              <a routerLink="/vysledky/historie/{{ result.race._id }}">{{
-                result.race.name
-              }}</a>
+              <a
+                href="/vysledky/historie/{{ result.race._id }}"
+                routerLink="/vysledky/historie/{{ result.race._id }}"
+                >{{ result.race.name }}</a
+              >
             </th>
             <td>{{ result.category }}</td>
             <td>{{ _AppService.getTimeString(result.time) }}</td>

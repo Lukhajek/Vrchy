@@ -42,9 +42,11 @@
                 </th></ng-template
               >
               <th>
-                <a routerLink="/zavodnik/{{ result.racer._id }}">{{
-                  result.racer.name
-                }}</a>
+                <a
+                  href="/zavodnik/{{ result.racer._id }}"
+                  routerLink="/zavodnik/{{ result.racer._id }}"
+                  >{{ result.racer.name }}</a
+                >
               </th>
               <td>{{ result.racer.team }}</td>
               <td>{{ result.racer.year }}</td>

@@ -30,32 +30,23 @@
     *ngIf="availableOverallHistoryResults"
     class="overall-history-buttons-div"
   >
-    <button
-      mat-raised-button
-      *ngFor="let year of availableOverallHistoryResults"
+    <a
+      href="/vysledky/historie/celkove/{{ year }}"
       routerLink="/vysledky/historie/celkove/{{ year }}"
-      color="primary"
+      *ngFor="let year of availableOverallHistoryResults"
     >
-      {{ year }}
-    </button>
+      <button mat-raised-button color="primary">
+        {{ year }}
+      </button>
+    </a>
     <a href="http://old.vrchy.maratonstav.cz/historie/">
       <button mat-raised-button>2020</button>
     </a>
     <a href="http://old.vrchy.maratonstav.cz/historie/">
-      <button
-        mat-raised-button
-        routerLink="http://old.vrchy.maratonstav.cz/historie/"
-      >
-        2019
-      </button>
+      <button mat-raised-button>2019</button>
     </a>
     <a href="http://www.iscarex.cz/pohar/126/rocniky" target="_blank">
-      <button
-        mat-raised-button
-        routerLink="http://www.iscarex.cz/pohar/126/rocniky"
-      >
-        2018 - 1986
-      </button>
+      <button mat-raised-button>2018 - 1986</button>
     </a>
   </div>
 </div>
@@ -92,6 +83,7 @@
               </td>
               <td>
                 <a
+                  href="/vysledky/historie/{{ race._id }}"
                   routerLink="/vysledky/historie/{{ race._id }}"
                   *ngIf="race.hasResults"
                   >Výsledky</a
